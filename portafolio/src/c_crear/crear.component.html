@@ -1,0 +1,103 @@
+<div *ngIf="creado == 'si'" class="alert alert-success border-0 alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+        <span class="font-weight-semibold">Bien hecho!</span> Has creado tu proyecto de manera exitosa!.
+    </div>
+    
+    <div *ngIf="creado == 'no'" class="alert alert-danger border-0 alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+        <span class="font-weight-semibold">Oh Demonios Gump!</span> Hubo un error al crear tu proyecto
+    </div>
+
+<div class="card" *ngIf="objProject">
+    <div class="card-header header-elements-inline">
+        <!-- <h5 class="card-title">Crear Proyecto</h5> -->
+        <h5 class="card-title">{{Titulo}}</h5>
+        <div class="header-elements">
+            <div class="list-icons">
+                <a class="list-icons-item" data-action="collapse"></a>
+                <a class="list-icons-item" data-action="reload"></a>
+                <a class="list-icons-item" data-action="remove"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <!-- <p class="mb-4">Formulario para la creación de un Proyecto</p> -->
+        <p class="mb-4">{{descripcion}}</p>
+        <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
+            <fieldset class="mb-3">
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Nombre del Proyecto:</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="objProject.name" required>
+                        <span class="form-text text-danger" *ngIf="name.touched && !name.valid">
+                            Llene el campo correctamente
+                        </span>                        
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-3">
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Descripción del Proyecto:</label>
+                    <div class="col-lg-10">
+                        <textarea #description="ngModel" [(ngModel)]="objProject.description" name="description" cols="60" rows="5" required></textarea>
+                        <span class="form-text text-danger" *ngIf="description.touched && !description.valid">
+                            Llene el campo correctamente
+                        </span> 
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-3">
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Categoría del Proyecto:</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" name="category" #category="ngModel" [(ngModel)]="objProject.category" required>
+                        <span class="form-text text-danger" *ngIf="category.touched && !category.valid">
+                            Llene el campo correctamente
+                        </span> 
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-3">
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Lenaguajes en los que se ha desarrollado:</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" name="langs" #langs="ngModel" [(ngModel)]="objProject.langs" required>
+                        <span class="form-text text-danger" *ngIf="langs.touched && !langs.valid">
+                            Llene el campo correctamente
+                        </span> 
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-3">
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Año de Creación del Proyecto:</label>
+                    <div class="col-lg-10">
+                        <input type="number" class="form-control" name="year" #year="ngModel" [(ngModel)]="objProject.year" required>
+                        <span class="form-text text-danger" *ngIf="year.touched && !year.valid">
+                            Llene el campo correctamente
+                        </span> 
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-3">
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Imagen del Proyecto</label>
+                    <div class="col-lg-10">
+                    <input type="file" name="image" placeholder="Subir Imagen" (change)="archivoModificado($event)"/>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-block btn-primary" [disabled]="!projectForm.form.valid"> Crear <i class="icon-paperplane ml-2"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
+
